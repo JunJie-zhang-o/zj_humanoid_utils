@@ -1,0 +1,19 @@
+[project]
+name = "zj_humanoid"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "jay", email = "jay.zhangjunjie@outlook.com"},
+]
+dependencies = ["plumbum>=1.9.0", "typer>=0.20.1", "dataclasses-json>=0.6.7", "json5>=0.12.1"]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
