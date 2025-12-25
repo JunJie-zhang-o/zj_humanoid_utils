@@ -21,9 +21,17 @@ build-backend = "pdm.backend"
 [tool.pdm]
 distribution = true
 
+
+
 [tool.pdm.scripts]
 # 运行 ROS 日志解析器（支持传递参数）
 ros-log = { call = "zj_humanoid.ros_log_helper:main" }
 
 [project.scripts]
 zj-deploy = "zj_humanoid.deploy:cli"
+
+
+
+# 用来修改每次打包的构建时间等信息
+[tool.middleware]
+test_version = "v1.0.0"
