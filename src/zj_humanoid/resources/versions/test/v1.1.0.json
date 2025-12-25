@@ -1,0 +1,163 @@
+
+
+{   
+    "version": "v1.0.4",             // 版本号
+    "build_time": "",                // 构建时间
+    "branch_name": "",
+    "commit_id": "",
+    "ORIN":{        // 可选
+        "sys_env_version":"",            // 母盘版本号
+        "build_time": "",            // 选填
+        "branch_name": "",           // 选填
+        "commit_id": "",             // 选填
+        "modules":[
+            {
+                "name":"",           // 选填
+                "version":"",        // 选填
+                "url":"",            // url和image中选择一个
+                "image":"",          // url和image中选择一个
+                "dependencies": []
+            }
+        ],
+        "resources":[
+            {
+                "url":"",           // 选填
+                "device_path":"",           // 设备路径,必填
+                "local_path":""           // 设备路径,必填
+            }
+        ]
+    },
+    "PICO":{
+        "sys_env_version":"",        // 母盘版本号
+        "build_time": "",            // 选填
+        "branch_name": "",           // 选填
+        "commit_id": "",             // 选填
+        "modules":[
+            {
+                "name":"zj-humanoid-ros-noetic-naviai-robot",
+                "version":"1.0.0-dev1.0.0+23-996f4cf",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/naviai_robot/zj-humanoid-ros-noetic-naviai-robot_1.0.0-dev1.0.0%2B23-996f4cffocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-uplimb-interface",
+                "version":"1.0.0-dev1.0.0+95-4e5d411",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/upperlimb/zj-humanoid-ros-noetic-uplimb-interface_1.0.0-dev1.0.0%2B95-4e5d411focal_amd64-12050837.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-upperlimb",
+                "version":"1.0.0-dev1.0.0+95-4e5d411",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/upperlimb/zj-humanoid-ros-noetic-upperlimb_1.0.0-dev1.0.0%2B95-4e5d411focal_amd64-12050835.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-pico-states",
+                "version":"1.0.0-main+12-becf6be",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_manager/zj-humanoid-ros-noetic-pico-states_1.0.0-main%2B12-becf6befocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-media-play",
+                "version":"1.0.0-main+7-ad1d29a",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_manager/zj-humanoid-ros-noetic-media-play_1.0.0-main%2B7-ad1d29afocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-text-show",
+                "version":"1.0.0-main+7-ad1d29a",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_manager/zj-humanoid-ros-noetic-text-show_1.0.0-main%2B7-ad1d29afocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-robot-state",
+                "version":"1.0.1-dev+10-eadb8fa",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_state/zj-humanoid-ros-noetic-robot-state_1.0.1-dev%2B10-eadb8fafocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-zj-robot",
+                "version":"1.1.0-dev+10-eadb8fa",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_state/zj-humanoid-ros-noetic-zj-robot_1.1.0-dev%2B10-eadb8fafocal_all.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-pico-runtime",
+                "version":"1.0.0-dev1.0.0+37-7c524ec",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/pico_runtime/zj-humanoid-ros-noetic-pico-runtime_1.0.0-dev1.0.0%2B37-7c524ecfocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-pico-runtime",
+                "version":"1.0.0-dev1.0.0-hotfix+38-f94bfde",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/pico_runtime/zj-humanoid-ros-noetic-pico-runtime_1.0.0-dev1.0.0-hotfix%2B38-f94bfdefocal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-dexhand-interface",
+                "version":"1.0.0-dev1.0.0+34-53da8f9",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/hand/zj-humanoid-ros-noetic-dexhand-interface_1.0.0-dev1.0.0%2B34-53da8f9focal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-hand",
+                "version":"1.0.0-dev1.0.0+34-53da8f9",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/hand/zj-humanoid-ros-noetic-hand_1.0.0-dev1.0.0%2B34-53da8f9focal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-legged-nav-description",
+                "version":"1.0.0-dev1.0.0+16-ce739e3",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/lowerlimb/zj-humanoid-ros-noetic-legged-nav-description_1.0.0-dev1.0.0%2B16-ce739e3focal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-legged-common",
+                "version":"1.0.0-dev1.0.0+16-ce739e3",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/lowerlimb/zj-humanoid-ros-noetic-legged-common_1.0.0-dev1.0.0%2B16-ce739e3focal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-legged-hw",
+                "version":"1.0.0-dev1.0.0+16-ce739e3",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/lowerlimb/zj-humanoid-ros-noetic-legged-hw_1.0.0-dev1.0.0%2B16-ce739e3focal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-legged-messages",
+                "version":"1.0.0-dev1.0.0+16-ce739e3",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/lowerlimb/zj-humanoid-ros-noetic-legged-messages_1.0.0-dev1.0.0%2B16-ce739e3focal_amd64.deb",
+                "dependencies": []
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-legged-nav2-hw",
+                "version":"1.0.0-dev1.0.0+16-ce739e3",
+                "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/lowerlimb/zj-humanoid-ros-noetic-legged-nav2-hw_1.0.0-dev1.0.0%2B16-ce739e3focal_amd64.deb",
+                "dependencies": []
+            }
+        ],
+        "zjhrobot":{},
+        "resources":[
+            {
+                "url":"",           // 选填
+                "local_path":"resources/common/config/naviai_default.yaml",           // 选填
+                "device_path":"/home/nav01/zj_humanoid/config"           // 设备路径,必填
+            },
+            {
+                "url":"",           // 选填
+                "local_path":"resources/common/scripts/*",           // 选填
+                "device_path":"/home/nav01/zj_humanoid/scripts"           // 设备路径,必填
+            },
+            {
+                "url":"",           // 选填
+                "local_path":"resources/common/startup/*",           // 选填
+                "device_path":"/home/nav01/zj_humanoid/startup"           // 设备路径,必填
+            },
+            {
+                "url":"",           // 选填
+                "local_path":"resources/common/run.sh",           // 选填
+                "device_path":"/home/nav01/zj_humanoid/"           // 设备路径,必填
+            },
+        ]
+    }
+}

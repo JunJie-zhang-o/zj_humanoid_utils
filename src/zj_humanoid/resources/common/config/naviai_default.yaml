@@ -1,0 +1,33 @@
+# ################################################################################
+# 文件: naviai_default.yaml
+# 位置: /home/nav01/zj_humanoid/config/naviai_default.yaml
+# 说明: 机器人默认配置文件
+# ################################################################################
+
+# ROS 日志级别
+ros_log_level: DEBUG
+
+# 上肢配置
+upperlimb:
+  pub_frequency: 125                 # 发布频率，默认 125Hz
+  log_level: DEBUG                   # 日志级别: DEBUG | INFO
+  zmq_plot: false                    # ZMQ绘图功能: true | false
+
+# 灵巧手配置
+hand:
+  pub_frequency: 200                 # 发布频率，默认 125Hz
+  enable_force_sensor: false         # 启用力传感器: true | false
+  enable_tactile_sensor: true        # 启用触觉传感器: true | false
+  log_level: "DEBUG"                 # 日志级别: DEBUG | INFO
+
+# 下肢配置
+lowerlimb:
+  pub_frequency: 200                 # 发布频率，默认 200Hz
+
+# 下肢硬件配置
+legged_nav2_hw:
+  loop_frequency: 1000                 # 控制循环频率: 1000Hz
+  cycle_time_error_threshold: 0.00025  # 周期时间误差阈值
+  thread_priority: 99                  # 线程优先级
+  power_limit: 6                       # 功率限制
+  contact_threshold: 200               # 接触阈值

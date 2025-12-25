@@ -1,0 +1,122 @@
+<!-- ################################################################################
+# 文件: robot_startUp.launch
+# 位置: /home/nav01/zj_humanoid/startup/robot_startUp.launch
+# 说明: 机器人主启动 launch 文件
+# 功能: 启动所有必要的机器人节点和接口
+################################################################################ -->
+<launch>
+    <!-- ================= 参数定义 ================= -->
+    <arg name="robot_name" default="zj_humanoid" 
+         doc="机器人命名空间，用于区分不同机器人实例"/>
+    <arg name="robot_type" default="$(optenv ROBOT_TYPE WA1)" 
+         doc="机器人型号 (WA1, WA2, H1, I2, I180)，优先从环境变量读取"/>
+    <arg name="config_file" default="/home/nav01/zj_humanoid/config/naviai_default.yaml"
+         doc="全局配置文件路径"/>
+    
+    <!-- ================= 调试参数 ================= -->
+    <arg name="debug_hand" default="false" doc="启用灵巧手节点GDB调试"/>
+    <arg name="debug_robot" default="false" doc="启用主控节点GDB调试"/>
+
+    <!-- ================= 加载全局配置 ================= -->
+    <group ns="$(arg robot_name)">
+        <!-- 加载全局配置（仅做配置加载，不包含启动具体硬件节点） -->
+        <rosparam command="load" file="$(arg config_file)"/>
+        <param name="robot_type" value="$(arg robot_type)" />
+    </group>
+
+        <!-- ================= 启动灵巧手硬件接口 ================= -->
+        <node name="hand"
+                    pkg="dexhand_interface"
+                    type="dexhand_interface_node"
+                    output="screen"
+                    respawn="false"
+                    respawn_delay="0"
+                    ns="$(arg robot_name)"
+                    launch-prefix="$(eval 'taskset -c 9' + (' gdb -ex run --args' if arg('debug_hand') else ''))">
+                <!-- 可以在这里添加灵巧手特定的参数 -->
+        </node>
+
+        <!-- ================= WA/H 系列主控节点 ================= -->
+        <node if="$(eval arg('robot_type') != 'I2' and arg('robot_type') != 'I180')" 
+                    name="$(arg robot_name)_naviai_robot"
+                    pkg="naviai_robot" 
+                    type="naviai_wa_h_robot_node" 
+                    output="screen" 
+                    respawn="false" 
+                    respawn_delay="0"
+                    ns="$(arg robot_name)"
+                    launch-prefix="$(eval 'taskset -c 9' + (' gdb -ex run --args' if arg('debug_robot') else ''))">
+                <param name="robot_type" value="$(arg robot_type)" />
+        </node>
+
+        <!-- ================= I180 专用主控节点 ================= -->
+        <node if="$(eval arg('robot_type') == 'I180')"
+                    name="$(arg robot_name)_naviai_robot"
+                    pkg="naviai_robot"
+                    type="naviai_i180_robot_node"
+                    output="screen"
+                    respawn="false"
+                    respawn_delay="0"
+                    ns="$(arg robot_name)"
+                    launch-prefix="$(eval 'taskset -c 9' + (' gdb -ex run --args' if arg('debug_robot') else ''))">
+                <param name="robot_type" value="$(arg robot_type)" />
+        </node>
+
+        <!-- ================= I2 专用主控节点 ================= -->
+        <node if="$(eval arg('robot_type') == 'I2')" 
+                    name="$(arg robot_name)_naviai_robot"
+                    pkg="naviai_robot" 
+                    type="naviai_i_robot_node" 
+                    output="screen" 
+                    respawn="false" 
+                    respawn_delay="0"
+                    ns="$(arg robot_name)"
+                    launch-prefix="$(eval 'taskset -c 9' + (' gdb -ex run --args' if arg('debug_robot') else ''))">
+                <param name="robot_type" value="$(arg robot_type)" />
+                <!-- <remap from="/cmd_vel" to="cmd_vel"/>
+                <remap from="/emergency_stop" to="emergency_stop"/>
+                <remap from="/set_arm_shake" to="set_arm_shake"/>
+                <remap from="/set_arm_wave" to="set_arm_wave"/>
+                <remap from="/set_stand" to="set_stand"/>
+                <remap from="/start_move" to="start_move"/> -->
+        </node>
+
+    <!-- ================= I2 专用配置 ================= -->
+    <group if="$(eval arg('robot_type') == 'I2')">
+        <!-- 加载 URDF 模型 -->
+        <param name="legged_robot_description" 
+               textfile="$(find legged_nav_description)/urdf/hi2/hi2.urdf"/>
+        
+        <!-- 加载配置 -->
+        <rosparam file="$(find legged_nav2_hw)/config/nav.yaml" 
+                  command="load" 
+                  ns="$(arg robot_name)"/>
+        
+        <!-- 启动运动控制器 -->
+        <include file="$(find legged_rl_controllers)/launch/one_start_real.launch">
+            <arg name="robot_name" value="$(arg robot_name)" />
+        </include>
+    </group>
+    
+    <!-- ================= 手柄控制模块 ================= -->
+    <include file="$(find joy_manager)/launch/joy_manager.launch">
+        <!-- <arg name="robot_name" value="$(arg robot_name)" /> -->
+    </include>
+
+    <!-- 媒体播放模块 -->
+    <include file="$(find media_play)/launch/media_play.launch">
+    </include>
+
+
+    <!-- Pico状态模块 -->
+    <include file="$(find pico_states)/launch/pico_states.launch">
+    </include>
+
+
+    <!-- 文本显示模块 -->
+    <include file="$(find text_show)/launch/text_show.launch">
+    </include>
+
+    
+    
+</launch>

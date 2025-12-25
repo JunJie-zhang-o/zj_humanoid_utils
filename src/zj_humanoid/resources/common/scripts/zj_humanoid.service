@@ -1,0 +1,17 @@
+[Unit]
+Description=ZJ Humanoid Robot Stack
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/home/nav01/zj_humanoid
+ExecStart=/home/nav01/zj_humanoid/run.sh
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
