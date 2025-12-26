@@ -10,7 +10,7 @@ import json5
 import os
 
 
-from plumbum import local , FG
+from plumbum import ProcessExecutionError, local , FG
 from plumbum.cmd import sudo, chmod, echo, cat, git, sed, cp
 import shutil
 
@@ -194,7 +194,16 @@ class AutoDeploy:
 
     def uninstall(self):
         """卸载当前安装的版本"""
-        sudo["apt","purge", "-y", "zj-humanoid-ros-noetic-*"] & FG
+        # sudo["apt","purge", "-y", "zj-humanoid-ros-noetic-*"] & FG
+        # (sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"]) & FG
+        try: 
+            sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"] & FG
+        except ProcessExecutionError as e:
+            if e.retcode == 100:
+                # print("没有匹配的包需要卸载")
+                print("uninstall done")
+            else:
+                raise
 
 
 # CLI 入口点
