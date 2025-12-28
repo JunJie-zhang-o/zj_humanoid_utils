@@ -188,15 +188,15 @@ class AutoDeploy:
             sudo["apt", "-y", "install", local.path(".") // "*"] & FG
 
         shutil.copy2(version_file, dists.joinpath(f"{_version}.json"))
-        shutil.rmtree(self.DEFAULT_DIR.joinpath("version.json"))
         # Path(dists.joinpath(f"{_version}.json")).symlink_to(self.DEFAULT_DIR.joinpath("version.json"))
+        Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
         Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{_version}.json"))
+
 
     def uninstall(self):
         """卸载当前安装的版本"""
-        # sudo["apt","purge", "-y", "zj-humanoid-ros-noetic-*"] & FG
-        # (sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"]) & FG
         try: 
+            Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
             sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"] & FG
         except ProcessExecutionError as e:
             if e.retcode == 100:

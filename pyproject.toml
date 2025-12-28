@@ -1,5 +1,5 @@
 [project]
-name = "zj_humanoid"
+name = "zjh_utils"
 version = "0.1.0"
 description = "Default template for PDM package"
 authors = [{ name = "jay", email = "jay.zhangjunjie@outlook.com" }]
@@ -13,6 +13,9 @@ requires-python = ">=3.8"
 readme = "README.md"
 license = { text = "MIT" }
 
+[tool.pdm.build]
+package-dir = "src"
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
@@ -25,10 +28,10 @@ distribution = true
 
 [tool.pdm.scripts]
 # 运行 ROS 日志解析器（支持传递参数）
-ros-log = { call = "zj_humanoid.ros_log_helper:main" }
+ros-log = { call = "zjh_utils.ros_log_helper:main" }
 
 [project.scripts]
-zj-deploy = "zj_humanoid.deploy:cli"
+deploy = "zjh_utils.deploy:cli"
 
 
 
