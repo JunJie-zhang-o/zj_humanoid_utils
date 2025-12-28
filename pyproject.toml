@@ -1,6 +1,6 @@
 [project]
 name = "zjh_utils"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Default template for PDM package"
 authors = [{ name = "jay", email = "jay.zhangjunjie@outlook.com" }]
 dependencies = [
@@ -25,6 +25,9 @@ build-backend = "pdm.backend"
 distribution = true
 
 
+[tool.pdm.version]
+source = "scm"
+version_format = "scripts.version:format_version"
 
 [tool.pdm.scripts]
 # 运行 ROS 日志解析器（支持传递参数）
