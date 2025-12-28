@@ -1,51 +1,80 @@
-
-
-{   
-    "version": "v1.0.0",             // 版本号
-    "build_time": "",                // 构建时间,打包时自动生成
-    "branch_name": "",               // 
+{
+    "version": "v1.0.0", // 版本号
+    "build_time": "", // 构建时间,打包时自动生成
+    "branch_name": "", // 
     "commit_id": "",
-    "ORIN":{        // 可选
-        "sys_env_version":"",            // 母盘版本号
-        "build_time": "",            // 选填
-        "branch_name": "",           // 选填
-        "commit_id": "",             // 选填
-        "modules":[
+    "ORIN": { // 可选
+        "sys_env_version": "", // 母盘版本号
+        "build_time": "", // 选填
+        "branch_name": "", // 选填
+        "commit_id": "", // 选填
+        "modules": [
             {
-                "name":"",           // 选填
-                "version":"",        // 选填
-                "url":"",            // url和image中选择一个
-                "image":"",          // url和image中选择一个
+                "name": "", // 选填
+                "version": "", // 选填
+                "url": "", // url和image中选择一个
+                "image": "", // url和image中选择一个
                 "dependencies": []
             }
         ],
-        "resource":[
+        "resource": [
             {
-                "url":"",           // 选填
-                "path":""           // 设备路径,必填
+                "url": "", // 选填
+                "path": "" // 设备路径,必填
             }
         ]
     },
-    "PICO":{
-        "sys_env_version":"",                // 母盘版本号
-        "build_time": "",            // 选填
-        "branch_name": "",           // 选填
-        "commit_id": "",             // 选填
-        "modules":[
+    "PICO": {
+        "sys_env_version": "", // 母盘版本号
+        "build_time": "", // 选填
+        "branch_name": "", // 选填
+        "commit_id": "", // 选填
+        "modules": [
             {
-                "name":"",           // 选填
-                "version":"",        // 选填
-                "url":"",            // url和image中选择一个,代表下载路径
-                "image":"",          // url和image中选择一个,代表docker地址
+                "name": "", // 选填
+                "version": "", // 选填
+                "url": "", // url和image中选择一个,代表下载路径
+                "image": "", // url和image中选择一个,代表docker地址
                 "dependencies": []
             },
         ],
-        "zjhrobot":{},
-        "resource":[
+        "zjhrobot": {},
+        "resource": [
             {
-                "url":"",           // 选填
-                "path":""           // 设备路径,必填
-            }
-        ]
+                "url": "", // 选填
+                "local_path": "", // 选填
+                "device_path": "" // 设备路径,必填
+            },
+        ],
+        "scripts": {
+            "pre_install": [ // 安装前执行的脚本
+                {
+                    "name": "", // 脚本名称,选填
+                    "cmd": "", // 脚本url,url和local_path选择一个
+                    "path": "" // 本地脚本路径(相对路径),url和local_path选择一个
+                }
+            ],
+            "post_install": [ // 安装后执行的脚本
+                {
+                    "name": "", // 脚本名称,选填
+                    "cmd": "", // 脚本url,url和local_path选择一个
+                    "path": "" // 本地脚本路径(相对路径),url和local_path选择一个
+                }
+            ],
+            "pre_uninstall": [ // 卸载前执行的脚本
+                {
+                    "name": "", // 脚本名称,选填
+                    "cmd": "", // 脚本url,url和local_path选择一个
+                    "path": "" // 本地脚本路径(相对路径),url和local_path选择一个
+                }
+            ],
+            "post_uninstall": [ // 卸载后执行的脚本
+                {
+                    "name": "", // 脚本名称,选填
+                    "cmd": "", // 脚本url,url和local_path选择一个
+                    "path": "" // 本地脚本路径(相对路径),url和local_path选择一个
+                }
+            ]
+        }
     }
 }

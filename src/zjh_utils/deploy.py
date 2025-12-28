@@ -1,7 +1,7 @@
 import fire
 from dataclasses import dataclass, field
 from sys import version
-from typing import List, Optional
+from typing import List, Literal, Optional
 from unittest import result
 
 from dataclasses_json import dataclass_json
@@ -11,7 +11,7 @@ import os
 
 
 from plumbum import ProcessExecutionError, local , FG
-from plumbum.cmd import sudo, chmod, echo, cat, git, sed, cp
+from plumbum.cmd import sudo, chmod, echo, cat, git, sed, cp, bash
 import shutil
 
 
@@ -34,11 +34,45 @@ class Resource:
 
 @dataclass_json
 @dataclass
+class ScriptHook:
+    name: Optional[str] = None
+    cmd: Optional[str] = None
+    path: Optional[str] = None
+
+    def execute(self) -> bool:
+        
+        if self.cmd is not None and self.cmd.strip() != "":
+            bash["-c", self.cmd] & FG
+        elif self.path is not None and self.path.strip() != "":
+            if Path(self.path).exists():
+                chmod["+x", self.path] & FG
+                local[self.path] & FG
+            else:
+                print(f"Error: {self.path} not exist.")
+                return False
+        
+        return True
+
+
+@dataclass_json
+@dataclass
+class Scripts:
+    pre_install: List[ScriptHook] = field(default_factory=list)
+    post_install: List[ScriptHook] = field(default_factory=list)
+    pre_uninstall: List[ScriptHook] = field(default_factory=list)
+    post_uninstall: List[ScriptHook] = field(default_factory=list)
+
+
+
+
+@dataclass_json
+@dataclass
 class Device:
     sys_env_version: Optional[str]
     build_time: Optional[str]
     branch_name: Optional[str]
     commit_id: Optional[str]
+    scripts: Scripts
     zjhrobot: Optional[str] = None
     modules:List[Module] = field(default_factory=list)
     resources: List[Resource] = field(default_factory=list)
@@ -53,6 +87,14 @@ class VersionDescription:
     commit_id:str
     ORIN:Device
     PICO:Device
+
+    @classmethod
+    def load(cls, path:str) -> "VersionDescription":
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json5.load(f)
+
+        version_desc:VersionDescription = VersionDescription.from_dict(data)  # type: ignore
+        return version_desc
 
 
 class AutoDeploy:
@@ -114,7 +156,17 @@ class AutoDeploy:
                 if index >= 0 and index < len(versions):
                     print(f"Select - Index:{index}, version:{versions[index]}")
                     return index, versions[index]
-        
+    
+    @classmethod
+    def load_version(cls, json_path: str) -> VersionDescription:
+
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json5.load(f)
+
+        version_desc:VersionDescription = VersionDescription.from_dict(data)  # type: ignore
+        return version_desc
+
+
 
     def install(self, version: Optional[str] = None, test_plan:Optional[bool] = None):
         """安装指定版本
@@ -143,7 +195,7 @@ class AutoDeploy:
         with open(version_file, 'r', encoding='utf-8') as f:
             data = json5.load(f)
 
-        version_desc = VersionDescription.from_dict(data)  # type: ignore
+        version_desc:VersionDescription = VersionDescription.from_dict(data)  # type: ignore
 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
@@ -182,15 +234,59 @@ class AutoDeploy:
             self.wget["-P", f"{str(dists)}", f"{module.url}"] & FG
 
 
+        self.pre_uninstall(desc=version_desc)
         self.uninstall()
+        self.post_uninstall(desc=version_desc)
 
+        self.pre_install(desc=version_desc)
         with local.cwd(dists):
             sudo["apt", "-y", "install", local.path(".") // "*"] & FG
 
         shutil.copy2(version_file, dists.joinpath(f"{_version}.json"))
-        # Path(dists.joinpath(f"{_version}.json")).symlink_to(self.DEFAULT_DIR.joinpath("version.json"))
         Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
         Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{_version}.json"))
+        self.post_install(desc=version_desc)
+
+
+
+    def pre_install(self, desc:VersionDescription):
+
+        if desc.PICO.scripts is None:
+            return
+
+        if len(desc.PICO.scripts.pre_install) >= 0:
+            for script in desc.PICO.scripts.pre_install:
+                script.execute()
+
+
+    def post_install(self, desc:VersionDescription):
+
+        if desc.PICO.scripts is None:
+            return
+
+        if len(desc.PICO.scripts.pre_install) >= 0:
+            for script in desc.PICO.scripts.post_install:
+                script.execute()
+
+    def pre_uninstall(self, desc:VersionDescription):
+
+        if desc.PICO.scripts is None:
+            return
+
+        if len(desc.PICO.scripts.pre_uninstall) >= 0:
+            for script in desc.PICO.scripts.pre_uninstall:
+                script.execute()
+
+
+    def post_uninstall(self, desc:VersionDescription):
+
+        if desc.PICO.scripts is None:
+            return
+
+        if len(desc.PICO.scripts.post_uninstall) >= 0:
+            for script in desc.PICO.scripts.post_uninstall:
+                script.execute()
+
 
 
     def uninstall(self):
@@ -204,6 +300,15 @@ class AutoDeploy:
                 print("uninstall done")
             else:
                 raise
+
+
+
+# class AutoDeployCli:
+
+
+
+
+#     def 
 
 
 # CLI 入口点
