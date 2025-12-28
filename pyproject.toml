@@ -8,17 +8,22 @@ dependencies = [
     "fire>=0.5.0",
     "dataclasses-json>=0.6.7",
     "json5>=0.12.1",
+    "tomli>=2.3.0",
 ]
 requires-python = ">=3.8"
 readme = "README.md"
 license = { text = "MIT" }
 
-[tool.pdm.build]
-package-dir = "src"
 
 [build-system]
-requires = ["pdm-backend"]
+requires = ["pdm-backend", "json5", "tomli"]
 build-backend = "pdm.backend"
+
+
+
+[tool.pdm.build]
+package-dir = "src"
+custom-hook = "scripts/pdm_build.py"
 
 
 [tool.pdm]
@@ -37,7 +42,6 @@ ros-log = { call = "zjh_utils.ros_log_helper:main" }
 deploy = "zjh_utils.deploy:cli"
 
 
-
 # 用来修改每次打包的构建时间等信息
-[tool.middleware]
-test_version = "v1.0.0"
+[tool.deploy]
+test_version = "v1.1.0"
