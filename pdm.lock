@@ -5,10 +5,21 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:9b883b0f22bbcacea54045f7a02fe1013eea3e4974c2ef1ae6f9ab3c8fdf8c45"
+content_hash = "sha256:da79a3f9ac5d3bbb55255b5a34144dae6c1900affe9dbe8282da0a9f8136e6cd"
 
 [[metadata.targets]]
 requires_python = ">=3.8"
+
+[[package]]
+name = "art"
+version = "6.5"
+requires_python = ">=3.6"
+summary = "ASCII Art Library For Python"
+groups = ["default"]
+files = [
+    {file = "art-6.5-py3-none-any.whl", hash = "sha256:70706408144c45c666caab690627d5c74aea7b6c7ce8cc968408ddeef8d84afd"},
+    {file = "art-6.5.tar.gz", hash = "sha256:a98d77b42c278697ec6cf4b5bdcdfd997f6b2425332da078d4e31e31377d1844"},
+]
 
 [[package]]
 name = "dataclasses-json"
