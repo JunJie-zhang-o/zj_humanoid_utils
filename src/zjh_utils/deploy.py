@@ -1,3 +1,4 @@
+import re
 import fire
 from dataclasses import dataclass, field
 from sys import version
@@ -121,7 +122,7 @@ class AutoDeploy:
         self.DEFAULT_DISTS.mkdir(parents=True, exist_ok=True)
         self.DEFAULT_LOGS.mkdir(parents=True, exist_ok=True)
 
-    def list_version(self, test_plan: Optional[bool]=None, select:bool=False):
+    def list_version(self,  test_plan: Optional[bool]=None, select:bool=False):
         """列出可用版本
         
         Args:
@@ -171,13 +172,14 @@ class AutoDeploy:
 
 
 
-    def install(self, version: Optional[str] = None, test_plan:Optional[bool] = None):
+    def install(self, robot_type: Literal["WA1", "WA2", "U1", "H1", "I2"], version: Optional[str] = None, test_plan:Optional[bool] = None):
         """安装指定版本
         
         Args:
             version: 要安装的版本（格式：release/v1.0.4 或 test/v1.1.0）
             test_plan: 是否安装测试版本
         """
+        zprint(f"Install | Robot Type:{robot_type}")
         _version = None
         if version is None:
             result = self.list_version(test_plan, select=True)
@@ -258,6 +260,27 @@ class AutoDeploy:
         Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{_version}.json"))
         self.post_install(desc=version_desc)
 
+
+
+    def post_global_install(self, robot_type: str):
+        run_sh = Path('/home/nav01/zj_humanoid/run.sh')
+        if run_sh.exists():
+            content = run_sh.read_text()
+            # 匹配 export ROBOT_TYPE="..." 或 ROBOT_TYPE="..."，只替换第一个
+            content = re.sub(r'^(export\s+)?ROBOT_TYPE="[^"]*"', f'export ROBOT_TYPE="{robot_type}"', content, count=1, flags=re.MULTILINE)
+            run_sh.write_text(content)
+            print(f"✓ run.sh: export ROBOT_TYPE=\"{robot_type}\"")
+
+        # 更新 .bashrc - 只替换第一个匹配
+        bashrc = Path("/home/nav01/.bashrc")
+        content = bashrc.read_text() if bashrc.exists() else ""
+
+        if re.search(r'^export\s+ROBOT_TYPE=', content, re.MULTILINE):
+            content = re.sub(r'^export\s+ROBOT_TYPE=.*$', f'export ROBOT_TYPE="{robot_type}"', content, count=1, flags=re.MULTILINE)
+        else:
+            content += f'\nexport ROBOT_TYPE="{robot_type}"\n'
+
+        bashrc.write_text(content)
 
 
     def pre_install(self, desc:VersionDescription):

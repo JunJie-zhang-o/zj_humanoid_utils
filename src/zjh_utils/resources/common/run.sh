@@ -18,6 +18,7 @@
 
 set -e  # Exit immediately on any error
 VERSION="V1.1.0"
+export ROBOT_TYPE=""
 # ======================== Color Definitions ========================
 RED='\033[0;31m'
 GREEN='\033[0;32m'
