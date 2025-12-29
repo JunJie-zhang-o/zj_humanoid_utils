@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2025-12-29 11:01:08",
+    "build_time": "2025-12-29 11:06:24",
     "branch_name": "main",
-    "commit_id": "5c658e4",
+    "commit_id": "6f176e2",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -142,8 +142,13 @@
             },
             {
                 "url": "",
-                "local_path": "resources/common/startup/*",
-                "device_path": "/home/nav01/zj_humanoid/startup",
+                "local_path": "resources/common/startup/startup_manager.py",
+                "device_path": "/home/nav01/zj_humanoid/startup/startup_manager.py",
+            },
+            {
+                "url": "",
+                "local_path": "resources/common/startup/robot_startUp.launch",
+                "device_path": "/home/nav01/zj_humanoid/startup/robot_startUp.launch",
             },
             {
                 "url": "",
