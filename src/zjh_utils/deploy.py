@@ -72,7 +72,7 @@ class Device:
     build_time: Optional[str]
     branch_name: Optional[str]
     commit_id: Optional[str]
-    scripts: Scripts
+    scripts:  Optional[Scripts] = None
     zjhrobot: Optional[str] = None
     modules:List[Module] = field(default_factory=list)
     resources: List[Resource] = field(default_factory=list)

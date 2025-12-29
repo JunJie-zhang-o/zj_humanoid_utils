@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2025-12-28 22:39:35",
+    "build_time": "2025-12-29 11:01:08",
     "branch_name": "main",
-    "commit_id": "eb580da",
+    "commit_id": "5c658e4",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -152,12 +152,12 @@
             },
         ],
         "scripts": {
-            "pre_install": [ // 安装前执行的脚本
+            "pre_install": [
                 {
-                    "name": "install hdf5 library", // 脚本名称,选填
-                    "cmd": "sudo apt install libhdf5-dev hdf5-tools", // 脚本url,url和local_path选择一个
-                    "path": "" // 本地脚本路径(相对路径),url和local_path选择一个
-                }
+                    "name": "install hdf5 library",
+                    "cmd": "sudo apt install libhdf5-dev hdf5-tools",
+                    "path": "",
+                },
             ],
             "post_install": [
                 {
