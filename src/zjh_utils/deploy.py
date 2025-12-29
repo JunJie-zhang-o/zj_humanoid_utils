@@ -48,7 +48,8 @@ class ScriptHook:
         elif self.path is not None and self.path.strip() != "":
             if Path(self.path).exists():
                 chmod["+x", self.path] & FG
-                local[self.path] & FG
+                with local.cwd(Path(self.path).resolve().parent):
+                    local[self.path] & FG
             else:
                 print(f"Error: {self.path} not exist.")
                 return False
