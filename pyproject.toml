@@ -39,7 +39,7 @@ version_format = "scripts.version:format_version"
 ros-log = { call = "zjh_utils.ros_log_helper:main" }
 
 [project.scripts]
-deploy = "zjh_utils.deploy:cli"
+zjh-deploy = "zjh_utils.deploy:cli"
 
 
 # 用来修改每次打包的构建时间等信息
