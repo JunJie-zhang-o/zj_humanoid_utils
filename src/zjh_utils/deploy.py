@@ -201,26 +201,17 @@ class AutoDeploy:
             data = json5.load(f)
 
         version_desc:VersionDescription = VersionDescription.from_dict(data)  # type: ignore
+
+        self.pre_uninstall(desc=version_desc)
+        self.uninstall()
+        self.post_uninstall(desc=version_desc)
+
         zprint("install") 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
             zprint(str(self.BASE_PATH.joinpath(resource.local_path)))
             zprint(resource.device_path)
-            # if not Path(resource.device_path).exists():
-
-            #     if Path(resource.device_path).suffix is "":
-            #         Path(resource.device_path).mkdir(parents=True, exist_ok=True)
-            #     else:
-            #         Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
-            # else:
-            #     if Path(resource.device_path).suffix is "":
-            #        shutil.rmtree(Path(resource.device_path))
-            #     else:
-            #         # Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
-            #         Path(resource.device_path).unlink()
-            input()
-            # if resource.local_path:
-            #     bash["-c", f"cp {self.BASE_PATH.joinpath(resource.local_path)} {resource.device_path}"]
+         
             if resource.local_path:
 
                 if Path(resource.device_path).suffix is "":
@@ -238,13 +229,7 @@ class AutoDeploy:
                 print(f"source:{source}")
                 print(f"target:{target}")
                 cp[source, target]  & FG
-            input()
-            print("cp done")
-            # cp[]
-            # Path(resource.device_path).mkdir(parents=True, exist_ok=True)
 
-            # if resource.url:
-            #     pass
             
             
 
@@ -265,9 +250,7 @@ class AutoDeploy:
             self.wget["-P", f"{str(dists)}", f"{module.url}"] & FG
 
 
-        self.pre_uninstall(desc=version_desc)
-        self.uninstall()
-        self.post_uninstall(desc=version_desc)
+        
 
         self.pre_install(desc=version_desc)
         zprint("install")
@@ -352,7 +335,8 @@ class AutoDeploy:
     def uninstall(self):
         """卸载当前安装的版本"""
         zprint("uninstall") 
-        shutil.rmtree("/home/nav01/zj_humanoid")
+        # shutil.rmtree("/home/nav01/zj_humanoid")
+        sudo["rm", "-r", "/home/nav01/zj_humanoid"] & FG
         try: 
             Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
             sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"] & FG
