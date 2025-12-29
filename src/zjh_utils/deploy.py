@@ -204,13 +204,15 @@ class AutoDeploy:
         zprint("install") 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
-
+            zprint(resource)
             if not Path(resource.device_path).exists():
                 if Path(resource.device_path).suffix is "":
                     Path(resource.device_path).mkdir(parents=True, exist_ok=True)
                 else:
                     Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
                     Path(resource.device_path).unlink()
+            input()
+                    
             bash["-c", f"{resource.local_path} {resource.device_path}"]
             # cp[]
             # Path(resource.device_path).mkdir(parents=True, exist_ok=True)
@@ -266,7 +268,9 @@ class AutoDeploy:
 
     def post_global_install(self, robot_type: str):
         run_sh = Path('/home/nav01/zj_humanoid/run.sh')
+        print("111111")
         if run_sh.exists():
+            print("222222")
             content = run_sh.read_text()
             # 匹配 export ROBOT_TYPE="..." 或 ROBOT_TYPE="..."，只替换第一个
             content = re.sub(r'^(export\s+)?ROBOT_TYPE="[^"]*"', f'export ROBOT_TYPE="{robot_type}"', content, count=1, flags=re.MULTILINE)
