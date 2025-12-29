@@ -199,24 +199,32 @@ class AutoDeploy:
 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
-            Path(resource.device_path).mkdir(parents=True, exist_ok=True)
 
-            if resource.url:
-                pass
+            if not Path(resource.device_path).exists():
+                if Path(resource.device_path).suffix is "":
+                    Path(resource.device_path).mkdir(parents=True, exist_ok=True)
+                else:
+                    Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
+            bash["-c", f"{resource.local_path} {resource.device_path}"]
+            # cp[]
+            # Path(resource.device_path).mkdir(parents=True, exist_ok=True)
+
+            # if resource.url:
+            #     pass
             
             
 
-            if resource.local_path:
-                # cp["-r", str(self.BASE_PATH.joinpath(resource.local_path)), str(resource.device_path)]  & FG
-                source = local.path(self.BASE_PATH.joinpath(resource.local_path))
-                target = local.path(resource.device_path)
+            # if resource.local_path:
+            #     # cp["-r", str(self.BASE_PATH.joinpath(resource.local_path)), str(resource.device_path)]  & FG
+            #     source = local.path(self.BASE_PATH.joinpath(resource.local_path))
+            #     target = local.path(resource.device_path)
 
-                if self.BASE_PATH.joinpath(resource.local_path).stem == "*":
-                    source =  local.path(self.BASE_PATH.joinpath(resource.local_path).parent) // "*"
-                if Path(resource.device_path).stem == "*":
-                    target = local.path(self.BASE_PATH.joinpath(resource.device_path).parent) // "*"
+            #     if self.BASE_PATH.joinpath(resource.local_path).stem == "*":
+            #         source =  local.path(self.BASE_PATH.joinpath(resource.local_path).parent) // "*"
+            #     if Path(resource.device_path).stem == "*":
+            #         target = local.path(self.BASE_PATH.joinpath(resource.device_path).parent) // "*"
 
-                cp[source, target]  & FG
+            #     cp[source, target]  & FG
 
         
 
