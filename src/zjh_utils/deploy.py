@@ -204,7 +204,7 @@ class AutoDeploy:
         zprint("install") 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
-            zprint(resource)
+            zprint(resource.device_path)
             if not Path(resource.device_path).exists():
                 if Path(resource.device_path).suffix is "":
                     Path(resource.device_path).mkdir(parents=True, exist_ok=True)
