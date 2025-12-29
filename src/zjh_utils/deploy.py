@@ -206,22 +206,27 @@ class AutoDeploy:
         for resource in version_desc.PICO.resources:
             zprint(str(self.BASE_PATH.joinpath(resource.local_path)))
             zprint(resource.device_path)
-            if not Path(resource.device_path).exists():
+            # if not Path(resource.device_path).exists():
+
+            #     if Path(resource.device_path).suffix is "":
+            #         Path(resource.device_path).mkdir(parents=True, exist_ok=True)
+            #     else:
+            #         Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
+            # else:
+            #     if Path(resource.device_path).suffix is "":
+            #        shutil.rmtree(Path(resource.device_path))
+            #     else:
+            #         # Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
+            #         Path(resource.device_path).unlink()
+            input()
+            # if resource.local_path:
+            #     bash["-c", f"cp {self.BASE_PATH.joinpath(resource.local_path)} {resource.device_path}"]
+            if resource.local_path:
 
                 if Path(resource.device_path).suffix is "":
                     Path(resource.device_path).mkdir(parents=True, exist_ok=True)
                 else:
                     Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
-            else:
-                if Path(resource.device_path).suffix is "":
-                   shutil.rmtree(Path(resource.device_path))
-                else:
-                    # Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
-                    Path(resource.device_path).unlink()
-            input()
-            # if resource.local_path:
-            #     bash["-c", f"cp {self.BASE_PATH.joinpath(resource.local_path)} {resource.device_path}"]
-            if resource.local_path:
                 # cp["-r", str(self.BASE_PATH.joinpath(resource.local_path)), str(resource.device_path)]  & FG
                 source = local.path(self.BASE_PATH.joinpath(resource.local_path))
                 target = local.path(resource.device_path)
