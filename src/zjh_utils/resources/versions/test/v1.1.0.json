@@ -152,15 +152,22 @@
             },
         ],
         "scripts": {
+            "pre_install": [ // 安装前执行的脚本
+                {
+                    "name": "install hdf5 library", // 脚本名称,选填
+                    "cmd": "sudo apt install libhdf5-dev hdf5-tools", // 脚本url,url和local_path选择一个
+                    "path": "" // 本地脚本路径(相对路径),url和local_path选择一个
+                }
+            ],
             "post_install": [
                 {
                     "name": "install sdk_auto_start.service",
-                    "cmd": "     ",
+                    "cmd": "/home/nav01/CodeFiles/sdk/zjhrobotsdkreleaseproject/Config/ShellScript/Startup/service_install.sh install",
                     "path": "/home/zhangjunjie/Pictures/33-zj_humanoid/tests/apt_update.sh",
                 },
                 {
                     "name": "install zj_humanoid.service",
-                    "cmd": "sudo apt update",
+                    "cmd": "/home/nav01/zj_humanoid/scripts/install_autostart_service.sh install",
                     "path": "",
                 },
             ],
