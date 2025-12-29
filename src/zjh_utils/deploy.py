@@ -219,7 +219,7 @@ class AutoDeploy:
                     Path(resource.device_path).unlink()
             input()
                     
-            bash["-c", f"{resource.local_path} {resource.device_path}"]
+            bash["-c", f"cp {resource.local_path} {resource.device_path}"]
             input()
             # cp[]
             # Path(resource.device_path).mkdir(parents=True, exist_ok=True)
