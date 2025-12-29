@@ -204,6 +204,7 @@ class AutoDeploy:
         zprint("install") 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
+            zprint(resource.local_path)
             zprint(resource.device_path)
             if not Path(resource.device_path).exists():
 
@@ -218,8 +219,8 @@ class AutoDeploy:
                     # Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
                     Path(resource.device_path).unlink()
             input()
-                    
-            bash["-c", f"cp {resource.local_path} {resource.device_path}"]
+            if resource.local_path:
+                bash["-c", f"cp {self.BASE_PATH.joinpath(resource.local_path)} {resource.device_path}"]
             input()
             # cp[]
             # Path(resource.device_path).mkdir(parents=True, exist_ok=True)
