@@ -204,7 +204,7 @@ class AutoDeploy:
         zprint("install") 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
-            zprint(resource.local_path)
+            zprint(self.BASE_PATH.joinpath(resource.local_path))
             zprint(resource.device_path)
             if not Path(resource.device_path).exists():
 
