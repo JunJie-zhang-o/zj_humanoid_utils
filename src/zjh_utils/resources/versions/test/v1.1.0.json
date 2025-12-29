@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2025-12-29 13:24:38",
+    "build_time": "2025-12-29 13:31:56",
     "branch_name": "main",
-    "commit_id": "127818c",
+    "commit_id": "fc6dd48",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -126,6 +126,12 @@
                 "version": "1.0.1-dev+10-eadb8fa",
                 "url": "http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_state/zj-humanoid-ros-noetic-robot-state_1.0.1-dev%2B10-eadb8fafocal_amd64.deb",
                 "dependencies": [],
+            },
+            {
+                "name":"zj-humanoid-ros-noetic-joy-manager",
+                "version":"1.0.0-dev1.0.0%2B7-e5661e0",
+                "url":"http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/joy_manager/zj-humanoid-ros-noetic-joy-manager_1.0.0-dev1.0.0%2B7-e5661e0focal_amd64.deb",
+                "dependencies": []
             },
         ],
         "zjhrobot": {},

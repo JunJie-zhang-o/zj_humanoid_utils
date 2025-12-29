@@ -57,6 +57,12 @@
                 "dependencies": []
             },
             {
+                "name":"zj-humanoid-ros-noetic-joy-manager",
+                "version":"1.0.0-dev1.0.0%2B7-e5661e0",
+                "url":"http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/joy_manager/zj-humanoid-ros-noetic-joy-manager_1.0.0-dev1.0.0%2B7-e5661e0focal_amd64.deb",
+                "dependencies": []
+            },
+            {
                 "name":"zj-humanoid-ros-noetic-media-play",
                 "version":"1.0.0-main+7-ad1d29a",
                 "url":"http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_manager/zj-humanoid-ros-noetic-media-play_1.0.0-main%2B7-ad1d29afocal_amd64.deb",
