@@ -13,7 +13,7 @@ import os
 from plumbum import ProcessExecutionError, local , FG
 from plumbum.cmd import sudo, chmod, echo, cat, git, sed, cp, bash
 import shutil
-
+from art import tprint
 
 @dataclass_json
 @dataclass
@@ -40,7 +40,8 @@ class ScriptHook:
     path: Optional[str] = None
 
     def execute(self) -> bool:
-        
+        if self.name is not None:
+            tprint(self.name, font="mini")
         if self.cmd is not None and self.cmd.strip() != "":
             bash["-c", self.cmd] & FG
         elif self.path is not None and self.path.strip() != "":
@@ -196,7 +197,7 @@ class AutoDeploy:
             data = json5.load(f)
 
         version_desc:VersionDescription = VersionDescription.from_dict(data)  # type: ignore
-
+        tprint("install", font="mini") 
         # 新建文件夹和文件复制
         for resource in version_desc.PICO.resources:
 
@@ -238,7 +239,7 @@ class AutoDeploy:
         for module in version_desc.PICO.modules:
             module:Module
             print("=" * 60)
-            print(f"Name:{module.name} | version:{module.version}")
+            tprint(f"Name:{module.name} | version:{module.version}", font="mini")
             self.wget["-P", f"{str(dists)}", f"{module.url}"] & FG
 
 
@@ -247,6 +248,7 @@ class AutoDeploy:
         self.post_uninstall(desc=version_desc)
 
         self.pre_install(desc=version_desc)
+        tprint("install", font="mini")
         with local.cwd(dists):
             sudo["apt", "-y", "install", local.path(".") // "*"] & FG
 
@@ -262,6 +264,7 @@ class AutoDeploy:
         if desc.PICO.scripts is None:
             return
 
+        tprint("pre_install", font="mini")
         if len(desc.PICO.scripts.pre_install) >= 0:
             for script in desc.PICO.scripts.pre_install:
                 script.execute()
@@ -272,7 +275,8 @@ class AutoDeploy:
         if desc.PICO.scripts is None:
             return
 
-        if len(desc.PICO.scripts.pre_install) >= 0:
+        tprint("post_install", font="mini")
+        if len(desc.PICO.scripts.post_install) >= 0:
             for script in desc.PICO.scripts.post_install:
                 script.execute()
 
@@ -281,6 +285,7 @@ class AutoDeploy:
         if desc.PICO.scripts is None:
             return
 
+        tprint("pre_uninstall", font="mini") 
         if len(desc.PICO.scripts.pre_uninstall) >= 0:
             for script in desc.PICO.scripts.pre_uninstall:
                 script.execute()
@@ -291,6 +296,7 @@ class AutoDeploy:
         if desc.PICO.scripts is None:
             return
 
+        tprint("post_uninstall", font="mini") 
         if len(desc.PICO.scripts.post_uninstall) >= 0:
             for script in desc.PICO.scripts.post_uninstall:
                 script.execute()
@@ -299,6 +305,7 @@ class AutoDeploy:
 
     def uninstall(self):
         """卸载当前安装的版本"""
+        tprint("uninstall", font="mini") 
         try: 
             Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
             sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"] & FG

@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2025-12-29 12:58:23",
+    "build_time": "2025-12-29 13:06:24",
     "branch_name": "main",
-    "commit_id": "95a2ada",
+    "commit_id": "7ffa0af",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -167,7 +167,7 @@
             "post_install": [
                 {
                     "name": "install sdk_auto_start.service",
-                    "cmd": "sudo /home/nav01/CodeFiles/sdk/zjhrobotsdkreleaseproject/Config/ShellScript/Startup/service_install.sh install",
+                    "cmd": "sudo /home/nav01/CodeFiles/sdk/zjhrobotsdkreleaseproject/Config/ShellScript/SDKAutoStartup/service_install.sh install",
                     "path": "/home/zhangjunjie/Pictures/33-zj_humanoid/tests/apt_update.sh",
                 },
                 {
