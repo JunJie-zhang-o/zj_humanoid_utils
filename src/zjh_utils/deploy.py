@@ -258,6 +258,7 @@ class AutoDeploy:
         shutil.copy2(version_file, dists.joinpath(f"{_version}.json"))
         Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
         Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{_version}.json"))
+        self.post_global_install(robot_type)
         self.post_install(desc=version_desc)
 
 
@@ -295,7 +296,7 @@ class AutoDeploy:
 
 
     def post_install(self, desc:VersionDescription):
-
+        
         if desc.PICO.scripts is None:
             return
 
