@@ -206,14 +206,21 @@ class AutoDeploy:
         for resource in version_desc.PICO.resources:
             zprint(resource.device_path)
             if not Path(resource.device_path).exists():
+
                 if Path(resource.device_path).suffix is "":
                     Path(resource.device_path).mkdir(parents=True, exist_ok=True)
                 else:
                     Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
+            else:
+                if Path(resource.device_path).suffix is "":
+                   shutil.rmtree(Path(resource.device_path))
+                else:
+                    # Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
                     Path(resource.device_path).unlink()
             input()
                     
             bash["-c", f"{resource.local_path} {resource.device_path}"]
+            input()
             # cp[]
             # Path(resource.device_path).mkdir(parents=True, exist_ok=True)
 
