@@ -19,11 +19,12 @@
                 "dependencies": []
             }
         ],
-        "resources":[
+        "resources": [
             {
-                "url":"",           // 选填
-                "path":""           // 设备路径,必填
-            }
+                "url": "",
+                "device_path": "",
+                "local_path": "",
+            },
         ]
     },
     "PICO":{
@@ -142,11 +143,12 @@
             }
         ],
         "zjhrobot":{},
-        "resources":[
+        "resources": [
             {
-                "url":"",           // 选填
-                "path":""           // 设备路径,必填
-            }
+                "url": "",
+                "device_path": "",
+                "local_path": "",
+            },
         ]
     }
 }

@@ -1,8 +1,8 @@
 {
     "version": "v1.0.0", // 版本号
-    "build_time": "", // 构建时间,打包时自动生成
-    "branch_name": "", // 
-    "commit_id": "",
+    "build_time": "",    // 构建时间,打包时自动生成
+    "branch_name": "",   // 分支名称,打包时自动生成
+    "commit_id": "",     // 打包时自动生成
     "ORIN": { // 可选
         "sys_env_version": "", // 母盘版本号
         "build_time": "", // 选填
