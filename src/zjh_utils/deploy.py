@@ -152,6 +152,7 @@ class AutoDeploy:
         index = 0
         for key, value in show_versions.items():
             print(f"{index}: {key}")
+            index += 1
 
 
         if select:
