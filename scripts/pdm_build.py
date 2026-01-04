@@ -71,6 +71,9 @@ def _update_json_fields(file_path: Path, build_time: str, branch: str, commit: s
             data = json5.load(f)
         if not isinstance(data, dict):
             return
+        if data["commit_id"] == commit and data["build_time"] != "":
+            print("No need to update if the current commit_id is the same.")
+            return 
         data["build_time"] = build_time
         data["branch_name"] = branch
         data["commit_id"] = commit
