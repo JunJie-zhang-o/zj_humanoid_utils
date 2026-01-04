@@ -293,8 +293,8 @@ class AutoDeploy:
 
     def pre_global_install(self, robot_type, version, robot_name: str="zj_humanoid"):
 
-        bashrc_local  = Path(self.BASE_PATH.joinpath("resources","zj_humanoid.bash"))
-        bashrc_device = Path(self.DEFAULT_DIR.joinpath("zj_humanoid.bash"))
+        bashrc_local  = Path(self.BASE_PATH.joinpath("resources",".bash_zjh"))
+        bashrc_device = Path(self.DEFAULT_DIR.joinpath(".bash_zjh"))
         content = bashrc_local.read_text() if bashrc_local.exists() else ""
 
         py_var = {
@@ -314,14 +314,19 @@ class AutoDeploy:
         
         if bashrc_path.exists():
             bashrc_content = bashrc_path.read_text()
-            # 检查是否已经包含 source 语句
-            if str(bashrc_device) not in bashrc_content:
-                # 添加 source 语句到 .bashrc
+            # 仅匹配未被注释的有效 source 语句（支持 "source" 或 "." 形式）
+            bashrc_device_escaped = re.escape(str(bashrc_device))
+            has_active_source = (
+                re.search(rf'^\s*source\s+{bashrc_device_escaped}\s*(?:#.*)?$', bashrc_content, re.MULTILINE) or
+                re.search(rf'^\s*\.\s+{bashrc_device_escaped}\s*(?:#.*)?$', bashrc_content, re.MULTILINE)
+            )
+            if not has_active_source:
+                # 添加有效的 source 语句到 .bashrc
                 with bashrc_path.open('a') as f:
                     f.write(f'\n# ZJ Humanoid environment\n{source_line}\n')
                 print(f"✓ 已添加 source 语句到 {bashrc_path}")
             else:
-                print(f"✓ {bashrc_path} 已包含 source 语句")
+                print(f"✓ {bashrc_path} 已包含有效的 source 语句")
         else:
             print(f"⚠ 警告: {bashrc_path} 不存在")
         
