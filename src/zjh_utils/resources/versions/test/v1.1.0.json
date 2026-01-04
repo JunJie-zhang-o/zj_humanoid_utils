@@ -161,6 +161,11 @@
                 "local_path": "resources/common/run.sh",
                 "device_path": "/home/nav01/zj_humanoid/",
             },
+            {
+                "url": "",
+                "local_path": "",
+                "device_path": "/home/nav01/zj_humanoid/orin/motions",
+            },
         ],
         "scripts": {
             "pre_install": [
