@@ -269,6 +269,7 @@ class AutoDeploy:
             shutil.rmtree(dists)
         
         dists.mkdir(parents=True, exist_ok=True)
+        
 
         for module in version_desc.PICO.modules:
             module:Module
@@ -285,7 +286,7 @@ class AutoDeploy:
 
         shutil.copy2(version_file, dists.joinpath(f"{version_file.name}"))
         Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
-        Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{_version}.json"))
+        Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{version_file.name}"))
         self.post_global_install(robot_type)
         self.post_install(desc=version_desc)
 
