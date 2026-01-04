@@ -149,10 +149,10 @@ class AutoDeploy:
             show_versions = {**self.release_versions}
 
 
-        index = 0
+        num = 0
         for key, value in show_versions.items():
-            print(f"{index}: {key}")
-            index += 1
+            print(f"{num}: {key}")
+            num += 1
 
 
         if select:
@@ -163,7 +163,7 @@ class AutoDeploy:
                     print("input is invalid!!!")
                     continue
                 index = int(index_input)
-                if index >= 0 and index < index:
+                if index >= 0 and index < num:
                     print(f"Select - Index:{index}, version:{list(show_versions.keys())[index]}, path:{list(show_versions.values())[index]}")
                     # return index, index_versions[index]
                     return {list(show_versions.keys())[index], list(show_versions.values())[index]}
