@@ -192,13 +192,13 @@ class AutoDeploy:
                 print(f"{i}: {v}")
 
             while 1:
-                index_input:str = input("please input will install verison index:")
+                index_input:str = input("please input will install robot model:")
 
                 if not index_input.isdigit():
                     print("input is invalid!!!")
                     continue
                 index = int(index_input)
-                if index >= 0 and index < index:
+                if index >= 0 and index < len(_robot_type):
                     robot_type = _robot_type[index]
                     break
 
