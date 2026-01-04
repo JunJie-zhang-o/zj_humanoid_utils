@@ -5,19 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python 调试程序: 当前文件",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python 调试程序: 远程附加",
             "type": "debugpy",
             "request": "attach",
             "connect": {
-                "host": "172.16.10.165 ",
+                "host": "172.16.10.165",
                 "port": 5678
             },
             "pathMappings": [
                 {
-                    "localRoot": "${workspaceFolder}",
-                    "remoteRoot": "."
+                    "localRoot": "${workspaceFolder}/src",
+                    "remoteRoot": "/home/nav01/.local/lib/python3.8/site-packages"
                 }
-            ]
+            ],
+            "justMyCode": false
         }
     ]
 }
