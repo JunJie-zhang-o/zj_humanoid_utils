@@ -263,7 +263,7 @@ class AutoDeploy:
 
 
 
-        dists = self.DEFAULT_DISTS.joinpath(f"{version.parent.name}", f"{version.name}")
+        dists = self.DEFAULT_DISTS.joinpath(f"{version.parent.name}", f"{version.stem}")
 
         if dists.exists():
             shutil.rmtree(dists)
