@@ -211,13 +211,16 @@ class AutoDeploy:
         for resource in version_desc.PICO.resources:
             zprint(str(self.BASE_PATH.joinpath(resource.local_path)))
             zprint(resource.device_path)
-         
-            if resource.local_path:
 
+            if resource.device_path:
                 if Path(resource.device_path).suffix is "":
                     Path(resource.device_path).mkdir(parents=True, exist_ok=True)
                 else:
                     Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
+
+
+            if resource.local_path:
+
                 # cp["-r", str(self.BASE_PATH.joinpath(resource.local_path)), str(resource.device_path)]  & FG
                 source = local.path(self.BASE_PATH.joinpath(resource.local_path))
                 target = local.path(resource.device_path)
