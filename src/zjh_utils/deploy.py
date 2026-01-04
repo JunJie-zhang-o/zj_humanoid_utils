@@ -2,7 +2,7 @@ import re
 import fire
 from dataclasses import dataclass, field
 from sys import version
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Tuple, Union
 from unittest import result
 
 from dataclasses_json import dataclass_json
@@ -131,7 +131,7 @@ class AutoDeploy:
             self.test_versions.update({f"test_{_json.stem}_{_version_desc.commit_id} | {_version_desc.build_time}": _json})
 
 
-    def list_version(self,  test_plan: Optional[bool]=None, select:bool=False):
+    def list_version(self,  test_plan: Optional[bool]=None, select:bool=False) -> Optional[Tuple[str, Path]]:
         """列出可用版本
         
         Args:
@@ -179,7 +179,7 @@ class AutoDeploy:
 
 
 
-    def install(self, robot_type: Optional[Literal["WA1", "WA2", "U1", "H1", "I2"]] = None, version: Optional[str] = None, test_plan:Optional[bool] = None):
+    def install(self, robot_type: Optional[Literal["WA1", "WA2", "U1", "H1", "I2"]] = None, version: Optional[Union[str, Path]] = None, test_plan:Optional[bool] = None):
         """安装指定版本
         
         Args:
@@ -263,7 +263,7 @@ class AutoDeploy:
 
 
 
-        dists = self.DEFAULT_DISTS.joinpath(f"{version}")
+        dists = self.DEFAULT_DISTS.joinpath(f"{version.parent.name}", f"{version.name}")
 
         if dists.exists():
             shutil.rmtree(dists)
