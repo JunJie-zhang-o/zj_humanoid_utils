@@ -116,11 +116,20 @@ class AutoDeploy:
 
     def __init__(self) -> None:
 
-        self.versions_for_release = list(self.BASE_PATH.joinpath(self.DEFAULT_VERSION_PATH, "release").rglob("*.json"))
-        self.versions_for_test = list(self.BASE_PATH.joinpath(self.DEFAULT_VERSION_PATH, "test").rglob("*.json"))
+        versions_for_release = list(self.BASE_PATH.joinpath(self.DEFAULT_VERSION_PATH, "release").rglob("*.json"))
+        versions_for_test = list(self.BASE_PATH.joinpath(self.DEFAULT_VERSION_PATH, "test").rglob("*.json"))
 
-        self.DEFAULT_DISTS.mkdir(parents=True, exist_ok=True)
-        self.DEFAULT_LOGS.mkdir(parents=True, exist_ok=True)
+        self.release_versions, self.test_versions = {}, {}
+        
+        for _json in versions_for_release:
+            _version_desc = self.load_version(str(_json))
+            self.release_versions.update({f"release_{_json.stem}": _json})
+        
+        for _json in versions_for_test:
+
+            _version_desc = self.load_version(str(_json))
+            self.test_versions.update({f"test_{_json.stem}_{_version_desc.commit_id} | {_version_desc.build_time}": _json})
+
 
     def list_version(self,  test_plan: Optional[bool]=None, select:bool=False):
         """列出可用版本
@@ -129,24 +138,20 @@ class AutoDeploy:
             test_plan: 是否仅显示测试版本
             select: 是否进入选择模式
         """
-        versions = []
 
+        show_versions = {}
         if test_plan is None:
-            for _json in self.versions_for_release:
-                versions.append(f"release_{_json.stem}")
-            
-            for _json in self.versions_for_test:
-                versions.append(f"test_{_json.stem}")
+            # versions = [all_versions for i in all_versions]
+            show_versions = {**self.release_versions, **self.test_versions}
+        elif test_plan:
+            show_versions = {**self.test_versions}
         else:
-            _versions = (self.versions_for_test) if test_plan else (self.versions_for_release)
-            prefix = "test_" if test_plan else "release_"
-            for _json in _versions:
-                versions.append(f"{prefix}{_json.stem}")
+            show_versions = {**self.release_versions}
 
-            
-        # [print(version) for version in versions]
-        for index, version in enumerate(versions):
-            print(f"{index}: {version}")
+
+        index = 0
+        for key, value in show_versions.items():
+            print(f"{index}: {key}")
 
 
         if select:
@@ -157,9 +162,10 @@ class AutoDeploy:
                     print("input is invalid!!!")
                     continue
                 index = int(index_input)
-                if index >= 0 and index < len(versions):
-                    print(f"Select - Index:{index}, version:{versions[index]}")
-                    return index, versions[index]
+                if index >= 0 and index < index:
+                    print(f"Select - Index:{index}, version:{list(show_versions.keys())[index]}, path:{list(show_versions.values())[index]}")
+                    # return index, index_versions[index]
+                    return {list(show_versions.keys())[index], list(show_versions.values())[index]}
     
     @classmethod
     def load_version(cls, json_path: str) -> VersionDescription:
@@ -180,27 +186,28 @@ class AutoDeploy:
             test_plan: 是否安装测试版本
         """
         zprint(f"Install | Robot Type:{robot_type}")
+        self.DEFAULT_DISTS.mkdir(parents=True, exist_ok=True)
+        self.DEFAULT_LOGS.mkdir(parents=True, exist_ok=True)
         _version = None
         if version is None:
             result = self.list_version(test_plan, select=True)
             if result is not None:
-                _, version_str = result
-                version_str = version_str.replace("_", os.sep)
-                _version = version_str.split(os.sep)[-1]
-                version = version_str
+                version_key, version_value = result
+                version = version_value
             else:
                 return
         else:
-            _version = version.split(os.sep)[-1]
+            print("Installation of a specific version is not currently supported.")
+            exit()
 
 
+        version_file = version
+        if version_file is None or version_file == "":
+            print("The current version is invalid and automatic deployment is not possible.")
+            return
 
-        version_file = self.BASE_PATH.joinpath(self.DEFAULT_VERSION_PATH, f"{version}.json")
+        version_desc = self.load_version(str(version_file))
 
-        with open(version_file, 'r', encoding='utf-8') as f:
-            data = json5.load(f)
-
-        version_desc:VersionDescription = VersionDescription.from_dict(data)  # type: ignore
 
         self.pre_uninstall(desc=version_desc)
         self.uninstall()
@@ -213,7 +220,7 @@ class AutoDeploy:
             zprint(resource.device_path)
 
             if resource.device_path:
-                if Path(resource.device_path).suffix is "":
+                if Path(resource.device_path).suffix == "":
                     Path(resource.device_path).mkdir(parents=True, exist_ok=True)
                 else:
                     Path(resource.device_path).parent.mkdir(parents=True, exist_ok=True)
@@ -233,12 +240,7 @@ class AutoDeploy:
                 print(f"target:{target}")
                 cp[source, target]  & FG
 
-            
-            
 
-            
-
-        
 
         dists = self.DEFAULT_DISTS.joinpath(f"{version}")
 
