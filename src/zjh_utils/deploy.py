@@ -283,7 +283,7 @@ class AutoDeploy:
         with local.cwd(dists):
             sudo["apt", "-y", "install", local.path(".") // "*"] & FG
 
-        shutil.copy2(version_file, dists.joinpath(f"{_version}.json"))
+        shutil.copy2(version_file, dists.joinpath(f"{version_file.name}"))
         Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
         Path(self.DEFAULT_DIR.joinpath("version.json")).symlink_to(dists.joinpath(f"{_version}.json"))
         self.post_global_install(robot_type)
