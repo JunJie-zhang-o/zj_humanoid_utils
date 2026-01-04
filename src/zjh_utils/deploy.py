@@ -200,6 +200,7 @@ class AutoDeploy:
                 index = int(index_input)
                 if index >= 0 and index < index:
                     robot_type = _robot_type[index]
+                    break
 
         zprint(f"Install | Robot Type:{robot_type}")
         self.DEFAULT_DISTS.mkdir(parents=True, exist_ok=True)
