@@ -23,7 +23,16 @@
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": false
-            }
+            },
+            "dependsOn":[
+                "pdm build whl"
+            ]
+        },
+        {
+            "label": "pdm build whl",
+            "type": "shell",
+            "command": "pdm build --no-sdist -v ",
+            "problemMatcher": []
         }
     ],
     "inputs": [
