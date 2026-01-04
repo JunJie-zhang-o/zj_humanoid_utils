@@ -166,7 +166,7 @@ class AutoDeploy:
                 if index >= 0 and index < num:
                     print(f"Select - Index:{index}, version:{list(show_versions.keys())[index]}, path:{list(show_versions.values())[index]}")
                     # return index, index_versions[index]
-                    return {list(show_versions.keys())[index], list(show_versions.values())[index]}
+                    return list(show_versions.keys())[index], list(show_versions.values())[index]
     
     @classmethod
     def load_version(cls, json_path: str) -> VersionDescription:
