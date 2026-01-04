@@ -293,7 +293,7 @@ class AutoDeploy:
 
     def pre_global_install(self, robot_type, version, robot_name: str="zj_humanoid"):
 
-        bashrc_local  = Path(self.BASE_PATH.joinpath("resource","zj_humanoid.bash"))
+        bashrc_local  = Path(self.BASE_PATH.joinpath("resources","zj_humanoid.bash"))
         bashrc_device = Path(self.DEFAULT_DIR.joinpath("zj_humanoid.bash"))
         content = bashrc_local.read_text() if bashrc_local.exists() else ""
 
