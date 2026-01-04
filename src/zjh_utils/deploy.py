@@ -9,7 +9,7 @@ from dataclasses_json import dataclass_json
 from pathlib import Path
 import json5
 import os
-
+from string import Template
 
 from plumbum import ProcessExecutionError, local , FG
 from plumbum.cmd import sudo, chmod, echo, cat, git, sed, cp, bash
@@ -222,6 +222,9 @@ class AutoDeploy:
         if version_file is None or version_file == "":
             print("The current version is invalid and automatic deployment is not possible.")
             return
+        
+
+        self.pre_global_install(robot_type=robot_type, version=version_key)
 
         version_desc = self.load_version(str(version_file))
 
@@ -287,11 +290,29 @@ class AutoDeploy:
 
 
 
+    def pre_global_install(self, robot_type, version, robot_name: str="zj_humanoid"):
+
+        bashrc_local  = Path(self.BASE_PATH.joinpath("zj_humanoid.bash"))
+        bashrc_device = Path(self.DEFAULT_DIR.joinpath("zj_humanoid.bash"))
+        content = bashrc_local.read_text() if bashrc_local.exists() else ""
+
+        py_var = {
+            "py_robot_type": robot_type,
+            "py_robot_name": robot_name,
+            "py_version": version,
+
+        }
+
+        template = Template(content)
+
+        out = template.safe_substitute(py_var)
+        bashrc_device.write_text(out)
+
+
+
     def post_global_install(self, robot_type: str):
         run_sh = Path('/home/nav01/zj_humanoid/run.sh')
-        print("111111")
         if run_sh.exists():
-            print("222222")
             content = run_sh.read_text()
             # 匹配 export ROBOT_TYPE="..." 或 ROBOT_TYPE="..."，只替换第一个
             content = re.sub(r'^(export\s+)?ROBOT_TYPE="[^"]*"', f'export ROBOT_TYPE="{robot_type}"', content, count=1, flags=re.MULTILINE)

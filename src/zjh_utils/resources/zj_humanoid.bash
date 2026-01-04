@@ -1,0 +1,23 @@
+
+
+source /opt/ros/noetic/setup.bash
+export PATH=/home/nav01/.local/bin:$PATH
+
+# support WA1 WA2 H1 U1 I2
+export ROBOT_TYPE="${py_robot_type}"     
+export ROBOT_NAME="${py_robot_name}"
+
+export ZJ_VERSION = "${py_version}"
+
+
+case "$ROBOT_TYPE" in
+    WA1|WA2)
+        export ROS_IP="192.168.217.66"
+        export ROS_MASTER_URI="http://192.168.217.1:11311"
+        ;;
+    *)
+        export ROS_IP="192.168.217.66"
+        export ROS_MASTER_URI="http://192.168.217.100:11311"
+        ;;
+esac
+
