@@ -421,6 +421,20 @@ class AutoDeploy:
 # CLI 入口点
 def cli():
     """ZJ Humanoid 部署工具 CLI 入口点"""
+    # 远程调试配置（可通过环境变量控制）
+    import os
+    if os.getenv('ENABLE_REMOTE_DEBUG', '').lower() in ('true', '1', 'yes'):
+        try:
+            import debugpy
+            debugpy.listen(("0.0.0.0", 5678))
+            print("⏳ Waiting for debugger to attach on port 5678...")
+            debugpy.wait_for_client()  # 等待调试器连接
+            print("✅ Debugger attached!")
+        except ImportError:
+            print("⚠️ debugpy not installed. Run: pip install debugpy")
+        except Exception as e:
+            print(f"⚠️ Remote debug error: {e}")
+    
     fire.Fire(AutoDeploy)
 
 
