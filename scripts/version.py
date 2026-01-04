@@ -21,8 +21,11 @@ def format_version(context=None):
     if context:
         print(context, "args=======")
     base_version = get_version()
+    branch = context.branch
+    # 规范化分支名称，替换不符合 PEP 440 的字符
+    branch = re.sub(r'[^a-zA-Z0-9.]', '.', branch)
     try:
-        dynamic_version = f"{base_version}.dev{context.distance}+{context.branch}.{context.node[1:]}"
+        dynamic_version = f"{base_version}.dev{context.distance}+{branch}.{context.node[1:]}"
         return dynamic_version
     except Exception as e:
         print("Error generating dynamic version:", e)
