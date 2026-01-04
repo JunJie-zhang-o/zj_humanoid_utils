@@ -178,13 +178,29 @@ class AutoDeploy:
 
 
 
-    def install(self, robot_type: Literal["WA1", "WA2", "U1", "H1", "I2"], version: Optional[str] = None, test_plan:Optional[bool] = None):
+    def install(self, robot_type: Optional[Literal["WA1", "WA2", "U1", "H1", "I2"]] = None, version: Optional[str] = None, test_plan:Optional[bool] = None):
         """安装指定版本
         
         Args:
-            version: 要安装的版本（格式：release/v1.0.4 或 test/v1.1.0）
+            version: 要安装的版本(格式:release/v1.0.4 或 test/v1.1.0)
             test_plan: 是否安装测试版本
         """
+        if robot_type is None:
+            _robot_type = ["WA1", "WA2", "U1","H1", "I2"]
+            print("Please select the model of the robot you wish to install.:")
+            for i, v in enumerate(_robot_type):
+                print(f"{i}: {v}")
+
+            while 1:
+                index_input:str = input("please input will install verison index:")
+
+                if not index_input.isdigit():
+                    print("input is invalid!!!")
+                    continue
+                index = int(index_input)
+                if index >= 0 and index < index:
+                    robot_type = _robot_type[index]
+
         zprint(f"Install | Robot Type:{robot_type}")
         self.DEFAULT_DISTS.mkdir(parents=True, exist_ok=True)
         self.DEFAULT_LOGS.mkdir(parents=True, exist_ok=True)
