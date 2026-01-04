@@ -308,6 +308,23 @@ class AutoDeploy:
         out = template.safe_substitute(py_var)
         bashrc_device.write_text(out)
 
+        bashrc_path = Path("/home/nav01/.bashrc")
+        source_line = f"source {bashrc_device}"
+        
+        if bashrc_path.exists():
+            bashrc_content = bashrc_path.read_text()
+            # 检查是否已经包含 source 语句
+            if str(bashrc_device) not in bashrc_content:
+                # 添加 source 语句到 .bashrc
+                with bashrc_path.open('a') as f:
+                    f.write(f'\n# ZJ Humanoid environment\n{source_line}\n')
+                print(f"✓ 已添加 source 语句到 {bashrc_path}")
+            else:
+                print(f"✓ {bashrc_path} 已包含 source 语句")
+        else:
+            print(f"⚠ 警告: {bashrc_path} 不存在")
+        
+
 
 
     def post_global_install(self, robot_type: str):
