@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2026-01-04 12:19:14",
+    "build_time": "2026-01-04 14:33:50",
     "branch_name": "dev/0.1.0",
-    "commit_id": "6d5f848",
+    "commit_id": "7940fdc",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -99,8 +99,8 @@
             },
             {
                 "name": "zj-humanoid-ros-noetic-zj-robot",
-                "version": "1.1.0-dev+10-eadb8fa",
-                "url": "http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_state/zj-humanoid-ros-noetic-zj-robot_1.1.0-dev%2B10-eadb8fafocal_all.deb",
+                "version": "1.1.0-developbatterywarn%2B18-23927f5",
+                "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/robot_state/zj-humanoid-ros-noetic-zj-robot_1.1.0-developbatterywarn%2B18-23927f5focal_all.deb",
                 "dependencies": [],
             },
             {
@@ -123,8 +123,8 @@
             },
             {
                 "name": "zj-humanoid-ros-noetic-robot-state",
-                "version": "1.0.1-dev+10-eadb8fa",
-                "url": "http://10.51.33.211:10000/chfs/shared/release/1.0.4/robot_state/zj-humanoid-ros-noetic-robot-state_1.0.1-dev%2B10-eadb8fafocal_amd64.deb",
+                "version": "1.1.0-developbatterywarn%2B18-23927f5",
+                "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/robot_state/zj-humanoid-ros-noetic-robot-state_1.1.0-developbatterywarn%2B18-23927f5focal_amd64.deb",
                 "dependencies": [],
             },
             {
