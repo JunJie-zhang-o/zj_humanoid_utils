@@ -7,7 +7,7 @@ export PATH=/home/nav01/.local/bin:$PATH
 export ROBOT_TYPE="${py_robot_type}"     
 export ROBOT_NAME="${py_robot_name}"
 
-export ZJ_VERSION = "${py_version}"
+export ZJ_VERSION="${py_version}"
 
 
 case "$ROBOT_TYPE" in
