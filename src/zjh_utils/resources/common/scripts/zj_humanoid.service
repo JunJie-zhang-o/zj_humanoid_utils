@@ -12,6 +12,8 @@ ExecStart=/home/nav01/zj_humanoid/run.sh
 Restart=on-failure
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
+Environment="DISPLAY=:0"
+Environment="XAUTHORITY=/run/user/1000/gdm/Xauthority"
 
 [Install]
 WantedBy=multi-user.target
