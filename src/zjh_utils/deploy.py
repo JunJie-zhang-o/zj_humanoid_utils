@@ -403,7 +403,8 @@ class AutoDeploy:
         """卸载当前安装的版本"""
         zprint("uninstall") 
         # shutil.rmtree("/home/nav01/zj_humanoid")
-        sudo["rm", "-r", "/home/nav01/zj_humanoid"] & FG
+        if Path("/home/nav01/zj_humanoid").exists():
+            sudo["rm", "-r", "/home/nav01/zj_humanoid"] & FG
         try: 
             Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
             sudo["bash", "-c", "apt purge -y zj-humanoid-ros-noetic-*"] & FG
