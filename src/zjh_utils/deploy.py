@@ -282,6 +282,13 @@ class AutoDeploy:
         self.pre_install(desc=version_desc)
         zprint("install")
         with local.cwd(dists):
+            run_files = list(Path(".").rglob("*.run"))
+            if run_files:
+                for run_file in run_files:
+                    cmd = local.path(run_file)
+                    chmod["+x", cmd] & FG
+                    sudo[cmd] & FG
+
             sudo["apt", "-y", "install", local.path(".") // "*"] & FG
 
         shutil.copy2(version_file, dists.joinpath(f"{version_file.name}"))

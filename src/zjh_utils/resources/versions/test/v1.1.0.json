@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2026-01-04 14:33:50",
+    "build_time": "2026-01-05 09:23:32",
     "branch_name": "dev/0.1.0",
-    "commit_id": "7940fdc",
+    "commit_id": "0ca0684",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -131,6 +131,12 @@
                 "name": "zj-humanoid-ros-noetic-joy-manager",
                 "version": "1.0.0-dev1.0.0%2B7-e5661e0",
                 "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/joy_manager/zj-humanoid-ros-noetic-joy-manager_1.0.0-dev1.0.0%2B7-e5661e0focal_amd64.deb",
+                "dependencies": [],
+            },
+            {
+                "name": "zj_humanoid_types_dev",
+                "version": "v1.1.0%2B7616de8%2B60",
+                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/zj_humanoid_types_dev-v1.1.0%2B7616de8%2B60.run",
                 "dependencies": [],
             },
         ],
