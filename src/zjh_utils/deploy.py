@@ -289,7 +289,7 @@ class AutoDeploy:
                     chmod["+x", cmd] & FG
                     sudo[cmd] & FG
 
-            sudo["apt", "-y", "install", local.path(".") // "*.deb"] & FG
+            sudo["apt", "-y", "install", "--allow-downgrades", local.path(".") // "*.deb"] & FG
 
         shutil.copy2(version_file, dists.joinpath(f"{version_file.name}"))
         Path(self.DEFAULT_DIR.joinpath("version.json")).unlink(missing_ok=True)
