@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2026-01-05 09:23:32",
+    "build_time": "2026-01-05 09:37:01",
     "branch_name": "dev/0.1.0",
-    "commit_id": "0ca0684",
+    "commit_id": "c3918c5",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",
@@ -99,32 +99,32 @@
             },
             {
                 "name": "zj-humanoid-ros-noetic-zj-robot",
-                "version": "1.1.0-developbatterywarn%2B18-23927f5",
-                "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/robot_state/zj-humanoid-ros-noetic-zj-robot_1.1.0-developbatterywarn%2B18-23927f5focal_all.deb",
+                "version": "1.1.1-developbatterywarn%2B21-472da94",
+                "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/robot_state/zj-humanoid-ros-noetic-zj-robot_1.1.1-developbatterywarn%2B21-472da94focal_all.deb",
                 "dependencies": [],
             },
             {
                 "name": "zj-humanoid-ros-noetic-pico-states",
-                "version": "1.1.0-testv1.1.0%2B18-55fb7bd",
-                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/robot_manager/zj-humanoid-ros-noetic-pico-states_1.1.0-testv1.1.0%2B18-55fb7bdfocal_amd64.deb",
+                "version": "1.1.0-testv1.1.0%2B21-202c4f7",
+                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/robot_manager/zj-humanoid-ros-noetic-pico-states_1.1.0-testv1.1.0%2B21-202c4f7focal_amd64.deb",
                 "dependencies": [],
             },
             {
                 "name": "zj-humanoid-ros-noetic-media-play",
-                "version": "1.1.0-testv1.1.0%2B18-55fb7bd",
-                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/robot_manager/zj-humanoid-ros-noetic-media-play_1.1.0-testv1.1.0%2B18-55fb7bdfocal_amd64.deb",
+                "version": "1.1.0-testv1.1.0%2B21-202c4f7",
+                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/robot_manager/zj-humanoid-ros-noetic-media-play_1.1.0-testv1.1.0%2B21-202c4f7focal_amd64.deb",
                 "dependencies": [],
             },
             {
                 "name": "zj-humanoid-ros-noetic-text-show",
-                "version": "1.1.0-testv1.1.0%2B18-55fb7bd",
-                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/robot_manager/zj-humanoid-ros-noetic-text-show_1.1.0-testv1.1.0%2B18-55fb7bdfocal_amd64.deb",
+                "version": "1.1.0-testv1.1.0%2B21-202c4f7",
+                "url": "http://10.51.33.211:10000/chfs/shared/temp/test/robot_manager/zj-humanoid-ros-noetic-text-show_1.1.0-testv1.1.0%2B21-202c4f7focal_amd64.deb",
                 "dependencies": [],
             },
             {
                 "name": "zj-humanoid-ros-noetic-robot-state",
-                "version": "1.1.0-developbatterywarn%2B18-23927f5",
-                "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/robot_state/zj-humanoid-ros-noetic-robot-state_1.1.0-developbatterywarn%2B18-23927f5focal_amd64.deb",
+                "version": "1.1.1-developbatterywarn%2B21-472da94",
+                "url": "http://10.51.33.211:10000/chfs/shared/develop/ubuntu2004/robot_state/zj-humanoid-ros-noetic-robot-state_1.1.1-developbatterywarn%2B21-472da94focal_amd64.deb",
                 "dependencies": [],
             },
             {
