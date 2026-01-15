@@ -131,7 +131,7 @@ class AutoDeploy:
             self.test_versions.update({f"test_{_json.stem}_{_version_desc.commit_id} | {_version_desc.build_time}": _json})
 
 
-    def list_version(self,  test_plan: Optional[bool]=None, select:bool=False) -> Optional[Tuple[str, Path]]:
+    def list_version(self,  test_plan: Optional[bool]=None, select:bool=False):
         """列出可用版本
         
         Args:
@@ -167,6 +167,7 @@ class AutoDeploy:
                     print(f"Select - Index:{index}, version:{list(show_versions.keys())[index]}, path:{list(show_versions.values())[index]}")
                     # return index, index_versions[index]
                     return list(show_versions.keys())[index], list(show_versions.values())[index]
+        return show_versions
     
     @classmethod
     def load_version(cls, json_path: str) -> VersionDescription:
@@ -215,8 +216,12 @@ class AutoDeploy:
             else:
                 return
         else:
-            print("Installation of a specific version is not currently supported.")
-            exit()
+            versions = self.list_version(test_plan)
+            if version in versions.keys():
+                version = versions[version]
+            else:
+                print("Installation of a specific version is not currently supported.")
+                exit()
 
 
         version_file = version
