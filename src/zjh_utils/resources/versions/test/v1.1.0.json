@@ -1,8 +1,8 @@
 {
     "version": "v1.1.0",
-    "build_time": "2026-01-15 11:06:08",
+    "build_time": "2026-01-15 11:07:47",
     "branch_name": "dev/0.1.0",
-    "commit_id": "08b472e",
+    "commit_id": "b17b537",
     "ORIN": {
         "sys_env_version": "",
         "build_time": "",

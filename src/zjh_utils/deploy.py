@@ -217,6 +217,7 @@ class AutoDeploy:
                 return
         else:
             versions = self.list_version(test_plan)
+            print(versions)
             if version in versions.keys():
                 version = versions[version]
             else:
